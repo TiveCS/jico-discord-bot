@@ -1,9 +1,12 @@
-import { IsString } from 'class-validator';
+import { IsUrl, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { JiraPayloadDto } from '../../jira/dto';
 
-export class SendMessageDto {
-  @IsString()
-  channelId: string;
+export class DiscordSendMessageDto {
+  @IsUrl()
+  webhookUrl: string;
 
-  @IsString()
-  message: string;
+  @ValidateNested()
+  @Type(() => JiraPayloadDto)
+  payload: JiraPayloadDto;
 }
